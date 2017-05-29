@@ -1,0 +1,30 @@
+{
+  "name": "vargas-adventure",
+  "version": "0.0.1",
+  "description": "Vargas Family adventure game for Alexa",
+  "main": "index.js",
+  "dependencies": {
+    "alexa-sdk": "^1.0.9"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.7.1",
+    "eslint-html-reporter": "^0.5.2",
+    "gulp": "^3.9.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-tap": "^1.0.1",
+    "gulp-zip": "^4.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsdriver/vargas-adventure.git"
+  },
+  "author": "Vargas Family",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gsdriver/vargas-adventure/issues"
+  },
+  "homepage": "https://github.com/gsdriver/vargas-adventure#readme"
+}
