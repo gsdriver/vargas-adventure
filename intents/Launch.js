@@ -5,16 +5,29 @@
 'use strict';
 
 const utils = require('../utils');
+const speechUtils = require('alexa-speech-utils')();
 
 module.exports = {
   handleIntent: function() {
     // Load the list of available stories
     utils.getStoryList((err, data) => {
-      if (data) {
-        // Just list the stories for now
-        console.log(data);
+      let speech = 'Welcome to the Vargas Family Adventure. ';
+      const stories = [];
+
+      for (const story in data) {
+        if (data.hasOwnProperty(story)) {
+          stories.push(story);
+        }
       }
-      this.emit(':ask', 'Welcome to the Vargas Family Adenture, we are still working on this game!', 'Come back later!');
+
+      if (stories.length) {
+        speech += 'We have the following available stories: ';
+        speech += speechUtils.and(stories);
+        speech += '. ';
+      }
+
+      speech += 'We are still working on this game!';
+      this.emit(':ask', speech, 'Come back later!');
     });
   },
 };

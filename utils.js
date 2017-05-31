@@ -5,30 +5,37 @@
 'use strict';
 
 const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
+const S3 = new AWS.S3({apiVersion: '2006-03-01', region: 'us-east-1'});
 
 module.exports = {
   getStoryList: function(callback) {
-    const params = {Bucket: 'vargas-family-stories', MaxKeys: 100};
     const keyList = [];
 
-    s3.listObjectsV2(params, (err, data) => {
-      let stories;
+    // Loop thru to read in all keys
+    (function loop(firstRun, token) {
+      const params = {Bucket: 'vargas-family-stories', MaxKeys: 100};
 
-      if (err) {
-        console.log('Error listing stories: ' + err);
-      } else {
-        // OK, let's add to the list of keys
-        let i;
+      if (firstRun || token) {
+        params.ContinuationToken = token;
 
-        for (i = 0; i < data.Contents.length; i++) {
-          keyList.push(data.Contents[i].Key);
-        }
+        const listObjectPromise = S3.listObjectsV2(params).promise();
+        return listObjectPromise.then((data) => {
+          let i;
 
-        stories = turnListToHierarchy(keyList);
+          for (i = 0; i < data.Contents.length; i++) {
+            keyList.push(data.Contents[i].Key);
+          }
+          if (data.NextContinuationToken) {
+            return loop(false, data.NextContinuationToken);
+          }
+        });
       }
-
-      callback(err, stories);
+    })(true, null).then(() => {
+      // Success - now parse these into stories
+      callback(null, turnListToHierarchy(keyList));
+    }).catch((err) => {
+      console.log('Error ' + err);
+      callback(err, null);
     });
   },
 };
