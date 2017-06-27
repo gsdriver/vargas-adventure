@@ -38,6 +38,44 @@ module.exports = {
       callback(err, null);
     });
   },
+  loadStory: function(story, sections, callback) {
+    // Loads a full story
+    const results = [];
+
+    if (!sections || !sections.length) {
+      callback('No files', null);
+      return;
+    }
+
+    (function addSection(sections) {
+      if (sections.length === 0) {
+        // All done!
+        callback(null, results);
+        return;
+      }
+
+      const section = sections.pop();
+      S3.getObject({Bucket: 'vargas-family-stories', Key: story + '/' + section}, (err, data) => {
+        if (err) {
+          // Oops, just abort the whole thing
+          console.log(err, err.stack);
+          callback(err, null);
+        } else {
+          // OK, let's read this in and split into an array
+          const text = data.Body.toString('ascii');
+          const choices = text.split('|');
+          const result = {name: section};
+
+          // The spoken text is the last part of this file, the
+          // earlier pieces are the choices
+          result.text = choices.pop();
+          result.choices = choices;
+          results.push(result);
+          addSection(sections);
+        }
+      });
+    })(sections);
+  },
 };
 
 function turnListToHierarchy(keys) {
