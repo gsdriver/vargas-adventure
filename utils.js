@@ -8,6 +8,16 @@ const AWS = require('aws-sdk');
 const S3 = new AWS.S3({apiVersion: '2006-03-01', region: 'us-east-1'});
 
 module.exports = {
+  emitResponse: function(emit, error, response, speech, reprompt) {
+    if (error) {
+      console.log('Speech error: ' + error);
+      emit(':ask', error, 'What else can I help with?');
+    } else if (response) {
+      emit(':tell', response);
+    } else {
+      emit(':ask', speech, reprompt);
+    }
+  },
   getStoryList: function(callback) {
     const keyList = [];
 
@@ -75,6 +85,20 @@ module.exports = {
         }
       });
     })(sections);
+  },
+  getStoryText: function(fullStory, branch) {
+    let i;
+    let storyText = '';
+
+    for (i = 0; i < fullStory.length; i++) {
+      if (fullStory[i].name.toLowerCase() === branch.toLowerCase()) {
+        // This is it!
+        storyText = fullStory[i].text;
+        break;
+      }
+    }
+
+    return storyText;
   },
 };
 
