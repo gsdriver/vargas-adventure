@@ -9,6 +9,22 @@ const Exit = require('./intents/Exit');
 const APP_ID = 'amzn1.ask.skill.8fb6e399-d431-4943-a797-7a6888e7c6ce';
 
 // Handlers for our skill
+const inStoryHandlers = Alexa.CreateStateHandler('INSTORY', {
+  'NewSession': function() {
+    this.handler.state = '';
+    this.emitWithState('NewSession');
+  },
+  'AMAZON.HelpIntent': Help.handleIntent,
+  'AMAZON.StopIntent': Exit.handleIntent,
+  'AMAZON.CancelIntent': Exit.handleIntent,
+  'SessionEndedRequest': function() {
+    this.emit(':saveState', true);
+  },
+  'Unhandled': function() {
+    this.emit(':ask', 'Sorry, I didn\'t recognize that. Try saying Yes.', 'Sorry, I didn\'t recognize that. Try saying Yes.');
+  },
+});
+
 const selectStoryHandlers = Alexa.CreateStateHandler('SELECTSTORY', {
   'NewSession': function() {
     this.handler.state = '';
@@ -55,6 +71,6 @@ exports.handler = function(event, context, callback) {
   const alexa = Alexa.handler(event, context);
 
   alexa.appId = APP_ID;
-  alexa.registerHandlers(handlers, selectStoryHandlers);
+  alexa.registerHandlers(handlers, inStoryHandlers, selectStoryHandlers);
   alexa.execute();
 };

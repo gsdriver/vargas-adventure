@@ -84,7 +84,7 @@ function BuildEvent(argv)
     lambda.request.intent = stop;
   } else if (argv[2] == 'cancel') {
     lambda.request.intent = cancel;
-  else {
+  } else {
     console.log(argv[2] + ' was not valid');
     return null;
   }
