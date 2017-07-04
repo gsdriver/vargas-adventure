@@ -58,10 +58,10 @@ module.exports = {
       return;
     }
 
+    let sectionsToAdd = sections.length;
     (function addSection(sections) {
       if (sections.length === 0) {
         // All done!
-        callback(null, results);
         return;
       }
 
@@ -90,9 +90,15 @@ module.exports = {
           }
 
           results.push(result);
-          addSection(sections);
+
+          // Is that it?
+          if (--sectionsToAdd === 0) {
+            callback(null, results);
+          }
         }
       });
+
+      addSection(sections);
     })(sections);
   },
   findSection: function(fullStory, name) {
