@@ -47,7 +47,7 @@ module.exports = {
     } else if (this.attributes.stories.length === 1) {
       // OK, we're going with this one
       this.handler.state = 'INSTORY';
-      selectedGame(this.emit, this.attributes);
+      selectedStory(this.emit, this.attributes);
     } else {
       const speech = 'Would you like to read ' + storyList[0] + '?';
 

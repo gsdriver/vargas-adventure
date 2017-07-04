@@ -1,1 +1,1 @@
-You walk straight past the door. Thanks for playing.
+Downstairs.txt|Explore Last.txt|You walk straight past the door. There is one more room on this floor. In front of you is the staircase to the 2nd floor. Will you go down the stairs or explore the other room?|Say 1 to go down the stairs and 2 to explore the last room on the 3rd floor.
