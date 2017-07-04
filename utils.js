@@ -48,9 +48,10 @@ module.exports = {
       callback(err, null);
     });
   },
-  loadStory: function(story, sections, callback) {
+  loadStory: function(story, sectionList, callback) {
     // Loads a full story
     const results = [];
+    const sections = JSON.parse(JSON.stringify(sectionList));
 
     if (!sections || !sections.length) {
       callback('No files', null);
@@ -76,29 +77,37 @@ module.exports = {
           const choices = text.split('|');
           const result = {name: section};
 
-          // The spoken text is the last part of this file, the
-          // earlier pieces are the choices
-          result.text = choices.pop();
-          result.choices = choices;
+          // If there is only one element to the file,
+          // it is the spoken text with no choices
+          // Otherwise, last element is repeat, second-to-last spoken text,
+          // and first elements are the choices
+          if (choices.length > 1) {
+            result.reprompt = choices.pop();
+            result.text = choices.pop();
+            result.choices = choices;
+          } else {
+            result.text = choices.pop();
+          }
+
           results.push(result);
           addSection(sections);
         }
       });
     })(sections);
   },
-  getStoryText: function(fullStory, branch) {
+  findSection: function(fullStory, name) {
     let i;
-    let storyText = '';
+    let section;
 
     for (i = 0; i < fullStory.length; i++) {
-      if (fullStory[i].name.toLowerCase() === branch.toLowerCase()) {
+      if (fullStory[i].name.toLowerCase() === name.toLowerCase()) {
         // This is it!
-        storyText = fullStory[i].text;
+        section = fullStory[i];
         break;
       }
     }
 
-    return storyText;
+    return section;
   },
 };
 

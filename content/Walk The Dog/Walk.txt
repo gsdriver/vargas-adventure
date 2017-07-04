@@ -1,1 +1,1 @@
-Fetch.txt|Hole.txt|The dog is so happy to see you and would love to go for a walk!  As you are walking it, you see a frisbee.  Say 1 if you want to throw the frisbee and ask the dog to fetch it.  Say 2 if you want to keep on walking.
+Fetch.txt|Hole.txt|The dog is so happy to see you and would love to go for a walk!  As you are walking it, you see a frisbee.|Say 1 if you want to throw the frisbee and ask the dog to fetch it.  Say 2 if you want to keep on walking.

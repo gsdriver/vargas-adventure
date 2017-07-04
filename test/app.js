@@ -1,11 +1,17 @@
 var mainApp = require('../index');
 
 const attributeFile = 'attributes.txt';
+const userId = 'not-amazon';
+
+const AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-1'});
+const dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
 function BuildEvent(argv)
 {
   // Templates that can fill in the intent
   var select = {'name': 'SelectIntent', 'slots': {}};
+  var choice = {'name': 'ChoiceIntent', 'slots': {'Choice': {'name': 'Choice', 'value': ''}}};
   var helpIntent = {"name": "AMAZON.HelpIntent", "slots": {}};
   var exitIntent = {"name": "SessionEndedRequest", "slots": {}};
   var yes = {'name': 'AMAZON.YesIntent', 'slots': {}};
@@ -18,11 +24,11 @@ function BuildEvent(argv)
      "session": {
        "sessionId": "SessionId.c88ec34d-28b0-46f6-a4c7-120d8fba8fa7",
        "application": {
-         "applicationId": "amzn1.ask.skill.8fb6e399-d431-4943-a797-7a6888e7c6ce"
+         "applicationId": "amzn1.ask.skill.b45ecc7b-7cb8-4a5d-9452-53cfbd46513d"
        },
        "attributes": {},
       "user": {
-         "userId": "not-amazon"
+         "userId": userId
        },
        "new": false
      },
@@ -40,11 +46,11 @@ function BuildEvent(argv)
      "session": {
        "sessionId": "SessionId.c88ec34d-28b0-46f6-a4c7-120d8fba8fa7",
        "application": {
-         "applicationId": "amzn1.ask.skill.8fb6e399-d431-4943-a797-7a6888e7c6ce"
+         "applicationId": "amzn1.ask.skill.b45ecc7b-7cb8-4a5d-9452-53cfbd46513d"
        },
        "attributes": {},
        "user": {
-         "userId": "not-amazon"
+         "userId": userId
        },
        "new": true
      },
@@ -72,6 +78,11 @@ function BuildEvent(argv)
   if ((argv.length <= 2) || (argv[2] == 'launch')) {
     // Return the launch request
     return openEvent;
+  } else if (argv[2] == 'choice') {
+    lambda.request.intent = choice;
+    if (argv.length > 3) {
+      choice.slots.Choice.value = argv[3];
+    }
   } else if (argv[2] == 'select') {
     lambda.request.intent = select;
   } else if (argv[2] == 'yes') {
@@ -124,7 +135,19 @@ myResponse.fail = function(e) {
 }
 
 // Build the event object and call the app
-var event = BuildEvent(process.argv);
-if (event) {
-    mainApp.handler(event, myResponse);
+if ((process.argv.length == 3) && (process.argv[2] == 'clear')) {
+  const fs = require('fs');
+
+  // Clear is a special case - delete this entry from the DB and delete the attributes.txt file
+  dynamodb.deleteItem({TableName: 'VargasStories', Key: { userId: {S: 'not-amazon'}}}, function (error, data) {
+    console.log("Deleted " + error);
+    if (fs.existsSync(attributeFile)) {
+      fs.unlinkSync(attributeFile);
+    }
+  });
+} else {
+  var event = BuildEvent(process.argv);
+  if (event) {
+      mainApp.handler(event, myResponse);
+  }
 }

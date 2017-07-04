@@ -1,1 +1,1 @@
-Walk.txt|Exit.txt|You are out for a walk in the park when you see a sweet, cute puppy.  Would you like to walk the dog?  Say 1 to approach the dog and try to take it for a walk.  Say 2 to keep walking by yourself.
+Walk.txt|Exit.txt|You are out for a walk in the park when you see a sweet, cute puppy.  Would you like to walk the dog?|Say 1 to approach the dog and try to take it for a walk.  Say 2 to keep walking by yourself.

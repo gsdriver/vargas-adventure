@@ -18,9 +18,6 @@ module.exports = {
       for (const story in storyDetails) {
         if (storyDetails.hasOwnProperty(story)) {
           stories.push(story);
-//          utils.loadStory(story, storyDetails[story], (err, results) => {
-//            console.log(results);
-//          });
         }
       }
 

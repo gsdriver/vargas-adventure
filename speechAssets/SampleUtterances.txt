@@ -1,0 +1,29 @@
+
+ChoiceIntent {Choice}
+ChoiceIntent choose {Choice}
+ChoiceIntent pick {Choice}
+ChoiceIntent option {Choice}
+ChoiceIntent number {Choice}
+ChoiceIntent choose number {Choice}
+ChoiceIntent pick number {Choice}
+ChoiceIntent option number {Choice}
+ChoiceIntent choose option {Choice}
+ChoiceIntent pick option {Choice}
+ChoiceIntent choose option number {Choice}
+ChoiceIntent pick option number {Choice}
+
+SelectIntent pick a different story
+SelectIntent pick a new story
+SelectIntent pick another story
+SelectIntent change to a different story
+SelectIntent change to a new story
+SelectIntent change to another story
+SelectIntent select a different story
+SelectIntent select a new story
+SelectIntent select another story
+SelectIntent choose a different story
+SelectIntent choose a new story
+SelectIntent choose another story
+SelectIntent switch to a different story
+SelectIntent switch to a new story
+SelectIntent switch to another story

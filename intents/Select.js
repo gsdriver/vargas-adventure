@@ -41,7 +41,10 @@ module.exports = {
   handleNoIntent: function() {
     // OK, pop this choice and go to the next one - if no other choices, we'll go with the last one
     this.attributes.stories.shift();
-    if (this.attributes.stories.length === 1) {
+    if (this.attributes.stories.length === 0) {
+      // Guess we only had one story - emit a Stop
+      this.emit('AMAZON.StopIntent');
+    } else if (this.attributes.stories.length === 1) {
       // OK, we're going with this one
       this.handler.state = 'INSTORY';
       selectedGame(this.emit, this.attributes);
@@ -61,19 +64,29 @@ function selectedStory(emit, attributes) {
   attributes.currentStory = attributes.stories[0];
   attributes.stories = undefined;
   speech = 'Welcome to the ' + attributes.currentStory + ' story. ';
+
   utils.loadStory(attributes.currentStory,
       attributes.storyDetails[attributes.currentStory],
       (err, results) => {
     if (err) {
-      speech = 'Sorry, I couldn\'t open the ' + attributes.currentStory + ' story. ';
+      speech = 'Sorry, I couldn\'t open the ' + attributes.currentStory + ' story.';
       reprompt = 'What can I help you with?';
-      speech += reprompt;
     } else {
-      attributes.fullStory = results;
-      reprompt = 'What would you like to do?';
-      speech += utils.getStoryText(results, 'start.txt');
+      const section = utils.findSection(results, 'start.txt');
+
+      if (section) {
+        attributes.fullStory = results;
+        attributes.currentSection = section;
+        speech += section.text;
+        reprompt = section.reprompt;
+      } else {
+        // No start file found?  Error out
+        speech = 'Sorry, I couldn\'t open the ' + attributes.currentStory + ' story.';
+        reprompt = 'What can I help you with?';
+      }
     }
 
+    speech += (' ' + reprompt);
     utils.emitResponse(emit, null, null, speech, reprompt);
   });
 }
