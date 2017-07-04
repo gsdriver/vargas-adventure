@@ -1,1 +1,1 @@
-You try and get the food. The person wakes up. They fall right back asleep. You leave the room, scared.
+Downstairs.txt|You try and get the food. The person wakes up. They fall right back asleep. You leave the room, scared.|Say 1 to go down the stairs
