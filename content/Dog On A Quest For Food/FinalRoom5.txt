@@ -1,0 +1,1 @@
+Burger.txt|NoBurger.txt|You go inside room 5. A young human is in there. They are too distracted to notice you. It seems that they have a cheeseburger beside them. Will you take it?|Say 1 for yes or 2 for no.

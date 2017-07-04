@@ -1,0 +1,1 @@
+FinalRoom1.txt|FinalRoom2.txt|FinalRoom3.txt|FinalRoom4.txt|FinalRoom5.txt|FinalRoom6.txt|You leave the room. Where would you like to go next?|Say 1 to go to the first room, 2 to go to the second room, 3 to go to the third room, 4 to go to the fourth room, 5 to go to the fifth room, or 6 to go to the sixth room.

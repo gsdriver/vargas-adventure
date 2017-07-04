@@ -1,0 +1,1 @@
+Jump.txt|Leave Room.txt|You go inside the room. There is a bed. Crumbs are all over it. Will you jump on it to eat all the crumbs, or leave the room?|Say 1 to jump on the bed and 2 to leave the room.

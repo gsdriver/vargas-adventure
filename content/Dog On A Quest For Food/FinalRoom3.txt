@@ -1,0 +1,1 @@
+Pizza.txt|NoPizza.txt|You go to room 3. Inside is a desk with a half-eaten sandwich, an open bag of chips, a slice of pizza, and a bottle of water. Will you eat the food and drink the water?|Say 1 for yes or 2 for no.

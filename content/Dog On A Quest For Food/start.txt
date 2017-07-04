@@ -1,0 +1,1 @@
+Inside.txt|Walk Past.txt|You are a dog. You are looking for some food. You are at the 3rd and top floor at your owner's house. There is a room in front of you. Do you want to go inside or walk past it?|Say 1 to go inside and 2 to walk past it.

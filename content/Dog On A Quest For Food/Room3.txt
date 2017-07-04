@@ -1,0 +1,1 @@
+Run.txt|Hide.txt|Someone is in there! Do you run out of the room, or hide and look for food?|Say 1 to run out of the room or 2 to hide.

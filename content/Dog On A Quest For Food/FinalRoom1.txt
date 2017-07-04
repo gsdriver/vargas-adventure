@@ -1,0 +1,1 @@
+SaladYes.txt|SaladNo.txt|You go inside room 1. Inside is a salad bar! It's empty! You don't take the time to wonder why there is a salad bar inside your owners house.   Will you go to the salad bar?|Say 1 for yes or 2 for no.

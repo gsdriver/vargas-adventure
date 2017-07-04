@@ -1,0 +1,1 @@
+Growl.txt|Bite.txt|You beg for food. The human stands there. You need to try something else!|Say 1 to growl, 2 to bite, or 3 to run away.

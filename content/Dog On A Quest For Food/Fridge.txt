@@ -1,0 +1,1 @@
+Dig.txt|NoDig.txt|You find the fridge. Will you dig inside for food?|Say 1 to dig for food or 2 to not dig for food.

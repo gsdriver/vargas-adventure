@@ -1,0 +1,1 @@
+Tray.txt|Leave Room.txt|You go towards the last room. You enter it. Inside is a bed. Someone is sleeping in it. They are holding a tray of food. Will you try and get the food, or leave the room?|Say 1 to try and get the food, and 2 to leave the room.

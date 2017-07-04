@@ -1,0 +1,1 @@
+Beg.txt|Growl.txt|Bite.txt|Run Away.txt|You go inside room 2. Inside is a human! What do you do? You can beg for food, growl, bite, or run away.|Say 1 to beg, 2 to growl, 3 to bite, or 4 to run away.
